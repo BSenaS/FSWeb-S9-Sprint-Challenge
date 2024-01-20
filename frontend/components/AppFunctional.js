@@ -17,12 +17,15 @@ export default function AppFunctional(props) {
   function getXY() {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
     // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.
+    const coordinates = [(index % 3) + 1, Math.floor(index / 3) + 1]
+    return coordinates;
   }
 
   function getXYMesaj() {
     // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
     // Koordinatları almak için yukarıdaki "getXY" helperını ve ardından "getXYMesaj"ı kullanabilirsiniz.
     // tamamen oluşturulmuş stringi döndürür.
+    return `Kordinatlar (${getXY()[0]},${getXY()[1]})`;
   }
 
   function reset() {
@@ -75,7 +78,9 @@ export default function AppFunctional(props) {
         sonrakiIndex(index + 3)
       }
       break;
-      
+
+      default:
+        break;
     }
   }
 
@@ -94,7 +99,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Koordinatlar (2, 2)</h3>
+        <h3 id="coordinates">{getXYMesaj()}</h3>
         <h3 id="steps">{steps} kere ilerlediniz</h3>
       </div>
       <div id="grid">
