@@ -50,7 +50,7 @@ export default function AppFunctional(props) {
     switch (yon) {
       case "left":
       if(index % 3 === 0) {
-        setMessage("Sola gidemezsiniz.");
+        setMessage("Sola gidemezsiniz");
       } else {
         sonrakiIndex(index - 1)
       }
@@ -58,7 +58,7 @@ export default function AppFunctional(props) {
 
       case "up":
       if(index < 3) {
-        setMessage("Yukarıya gidemezsiniz.");
+        setMessage("Yukarıya gidemezsiniz");
       } else {
         sonrakiIndex(index - 3)
       }
@@ -66,7 +66,7 @@ export default function AppFunctional(props) {
 
       case "right":
       if(index % 3 === 2) {
-        setMessage("Sağa gidemezsiniz.");
+        setMessage("Sağa gidemezsiniz");
       } else {
         sonrakiIndex(index + 1)
       }
@@ -74,7 +74,7 @@ export default function AppFunctional(props) {
 
       case "down":
       if(index > 5) {
-        setMessage("Aşağıya gidemezsiniz.");
+        setMessage("Aşağıya gidemezsiniz");
       } else {
         sonrakiIndex(index + 3)
       }
@@ -105,6 +105,7 @@ export default function AppFunctional(props) {
       console.log(error);
       setMessage(error.response.data.message);
     })
+    setEmail(initialEmail);
   }
 
 
