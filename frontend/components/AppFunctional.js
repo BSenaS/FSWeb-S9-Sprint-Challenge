@@ -27,21 +27,56 @@ export default function AppFunctional(props) {
 
   function reset() {
     // Tüm stateleri başlangıç ​​değerlerine sıfırlamak için bu helperı kullanın.
-    setIndex(initialMessage);
-    setMessage(initialEmail);
-    setEmail(initialSteps);
-    setSteps(initialIndex);
+    setIndex(initialIndex);
+    setMessage(initialMessage);
+    setEmail(initialEmail);
+    setSteps(initialSteps);
   }
 
-  function sonrakiIndex(yon) {
-    // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
-    // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için, 
-    // şu anki indeksi değiştirmemeli.
+  function sonrakiIndex(targetIndex) {
+    setIndex(targetIndex);
+    setSteps(steps + 1);
+    setMessage(initialMessage);
   }
 
   function ilerle(evt) {
-    // Bu event handler, "B" için yeni bir dizin elde etmek üzere yukarıdaki yardımcıyı kullanabilir,
-    // ve buna göre state i değiştirir.
+    //evt targeti destructure etme
+    const yon = evt.target.id;
+    //Yon tuslarının fonksiyonelliği
+    switch (yon) {
+      case "left":
+      if(index % 3 === 0) {
+        setMessage("Sola gidemezsiniz.");
+      } else {
+        sonrakiIndex(index - 1)
+      }
+      break;
+
+      case "up":
+      if(index < 3) {
+        setMessage("Yukarıya gidemezsiniz.");
+      } else {
+        sonrakiIndex(index - 3)
+      }
+      break;
+
+      case "right":
+      if(index % 3 === 2) {
+        setMessage("Sağa gidemezsiniz.");
+      } else {
+        sonrakiIndex(index + 1)
+      }
+      break;
+
+      case "down":
+      if(index > 5) {
+        setMessage("Aşağıya gidemezsiniz.");
+      } else {
+        sonrakiIndex(index + 3)
+      }
+      break;
+      
+    }
   }
 
   function onChange(evt) {
@@ -56,7 +91,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Koordinatlar (2, 2)</h3>
-        <h3 id="steps">0 kere ilerlediniz</h3>
+        <h3 id="steps">{steps} kere ilerlediniz</h3>
       </div>
       <div id="grid">
         {
@@ -68,17 +103,22 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
-        <button onClick={reset} id="left">SOL</button>
-        <button onClick={reset} id="up">YUKARI</button>
-        <button onClick={reset} id="right">SAĞ</button>
-        <button onClick={reset} id="down">AŞAĞI</button>
+        <button onClick={ilerle} id="left">SOL</button>
+        <button onClick={ilerle} id="up">YUKARI</button>
+        <button onClick={ilerle} id="right">SAĞ</button>
+        <button onClick={ilerle} id="down">AŞAĞI</button>
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="email girin"></input>
+        <input value={email} 
+        id="email" 
+        type="email" 
+        placeholder="email girin"
+        onChange={(evt) => setEmail(evt.target.value)}
+        ></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
